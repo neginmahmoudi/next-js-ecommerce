@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { getItemById } from '../../database/items';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
@@ -32,6 +33,7 @@ const imgStyles = css`
 `;
 
 export default function Item(props) {
+  const [inputVal, setInputVal] = useState(0);
   if (props.error) {
     context.res.statusCode = 404;
     return (
@@ -68,31 +70,33 @@ export default function Item(props) {
           max={props.item.number}
           placeholder="0"
           defaultValue="0"
-          onChange={(event) =>
-            props.setInputVal(Number(event.currentTarget.value))
-          }
+          onChange={(event) => setInputVal(Number(event.currentTarget.value))}
         />
         <button
           onClick={() => {
-            const currentCookieValue = getParsedCookie('cart');
+            const currentCookieValue = getParsedCookie('num');
+            console.log('current', currentCookieValue);
             if (!currentCookieValue) {
-              setStringifiedCookie('cart', [
-                { id: props.item.id, cart: props.inputVal },
-              ]);
+              //
+              props.setCart([{ id: props.item.id, num: inputVal }]);
             } else {
               const foundCookie = currentCookieValue.find(
                 (cookieItemObj) => cookieItemObj.id === props.item.id,
               );
+              console.log('found', foundCookie);
               if (!foundCookie) {
                 currentCookieValue.push({
                   id: props.item.id,
-                  cart: props.inputVal,
+                  num: inputVal,
                 });
               } else {
-                foundCookie.cart + props.inputVal;
+                foundCookie.num = foundCookie.num + inputVal;
+                console.log(foundCookie.num);
               }
-              setStringifiedCookie('cart', currentCookieValue);
+
+              setStringifiedCookie('num', currentCookieValue);
             }
+            console.log(currentCookieValue);
           }}
         >
           Add to cart

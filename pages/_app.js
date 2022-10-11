@@ -5,15 +5,21 @@ import Layout from '../components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps }) {
-  const [inputVal, setInputVal] = useState();
+  const [cart, setCart] = useState();
+  // console.log(cart);
 
   useEffect(() => {
-    const getCookie = getParsedCookie('num');
-    setInputVal(getCookie);
+    const cookieValue = getParsedCookie('num');
+    if (cookieValue) {
+      setCart(cookieValue);
+    }
   }, []);
+  console.log('card', cart);
   useEffect(() => {
-    setStringifiedCookie('num', inputVal);
-  }, []);
+    if (typeof cart !== 'undefined') setStringifiedCookie('num', cart);
+  }, [cart]);
+  console.log('cardddd', cart);
+
   return (
     <>
       <Global
@@ -31,12 +37,8 @@ function MyApp({ Component, pageProps }) {
       />
 
       <CookieBanner />
-      <Layout inputVal={inputVal} setInputVal={setInputVal}>
-        <Component
-          {...pageProps}
-          inputVal={inputVal}
-          setInputVal={setInputVal}
-        ></Component>
+      <Layout cart={cart} setCart={setCart}>
+        <Component {...pageProps} cart={cart} setCart={setCart} />
       </Layout>
     </>
   );

@@ -35,7 +35,7 @@ const navStyles = css`
   align-items: center;
   padding: 20px;
   a {
-    margin-left: 13px;
+    margin-left: 20px;
     text-decoration: none;
     color: #dfd3c3;
     text-align: center;
@@ -48,6 +48,9 @@ const navStyles = css`
   }
 `;
 export default function Header(props) {
+  const sumCart = props.cart?.reduce(function (accumulator, curValue) {
+    return accumulator + curValue.num;
+  }, 0);
   return (
     <header>
       <div css={containerStyle}>
@@ -65,7 +68,7 @@ export default function Header(props) {
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <Link href="/product">Products</Link>
-            <Link href="/product/cart">
+            <Link href="/cart">
               <Image
                 src="/trolly.jpg"
                 alt="logo of the cart"
@@ -73,7 +76,8 @@ export default function Header(props) {
                 height="30px"
               />
             </Link>
-            {props.inputVal}
+            {sumCart}
+            <Link href="/checkout">checkout</Link>
           </nav>
         </div>
       </div>
