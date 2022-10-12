@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getItem } from '../../database/items';
+import { getItem, Item } from '../../database/items';
 
 const wrapstyles = css`
   display: flex;
@@ -32,7 +33,10 @@ const containerStyles = css`
   }
 `;
 
-export default function Items(props) {
+type Props = {
+  pageItems: Item[];
+};
+export default function Items(props: Props) {
   return (
     <>
       <Head>
@@ -69,7 +73,9 @@ export default function Items(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(): Promise<
+  GetServerSidePropsResult<Props>
+> {
   const pageItems = await getItem();
   return {
     props: {

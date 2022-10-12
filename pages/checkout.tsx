@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { getItem } from '../database/items';
+import { getItem, Item } from '../database/items';
 
 const containerStyles = css`
   display: flex;
@@ -32,6 +32,9 @@ const btnStyles = css`
     color: black;
   }
 `;
+// type Props = {
+//   setCart: ;
+// };
 export default function CheckOut(props) {
   return (
     <>

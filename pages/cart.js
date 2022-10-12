@@ -80,7 +80,7 @@ export default function Cart(props) {
   );
   console.log('total', totalPrice);
 
-  function removeProduct(id) {
+  function removeItem(id) {
     const newCart = props.cart?.filter((item) => item.id !== id);
     props.setCart(newCart);
   }
@@ -121,7 +121,7 @@ export default function Cart(props) {
                       <div> Number :{item.num}</div>
                       <div>EUR : {item.price}</div>
 
-                      <button onClick={() => removeProduct(item.id)}>
+                      <button onClick={() => removeItem(item.id)}>
                         remove
                       </button>
                     </div>

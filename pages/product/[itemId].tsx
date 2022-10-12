@@ -89,11 +89,14 @@ export default function Item(props) {
                   id: props.item.id,
                   num: inputVal,
                 });
+                props.setCart([
+                  ...props.cart,
+                  { id: props.item.id, num: inputVal },
+                ]);
               } else {
                 foundCookie.num = foundCookie.num + inputVal;
-                console.log(foundCookie.num);
               }
-
+              // come up with the logic
               setStringifiedCookie('num', currentCookieValue);
             }
             console.log(currentCookieValue);
