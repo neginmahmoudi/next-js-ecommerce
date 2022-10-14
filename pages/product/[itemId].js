@@ -33,7 +33,7 @@ const imgStyles = css`
 `;
 
 export default function Item(props) {
-  const [inputVal, setInputVal] = useState(0);
+  const [inputVal, setInputVal] = useState(1);
   if (props.error) {
     context.res.statusCode = 404;
     return (
@@ -63,27 +63,23 @@ export default function Item(props) {
       <div css={formStyles}>
         <div>EUR: {props.item.price}</div>
         <div>Available: {props.item.number}</div>
-
+        {/* change  */}
         <input
           type="number"
           min="1"
           max={props.item.number}
-          placeholder="0"
-          defaultValue="0"
+          value={inputVal}
           onChange={(event) => setInputVal(Number(event.currentTarget.value))}
         />
         <button
           onClick={() => {
             const currentCookieValue = getParsedCookie('num');
-            console.log('current', currentCookieValue);
             if (!currentCookieValue) {
-              //
               props.setCart([{ id: props.item.id, num: inputVal }]);
             } else {
               const foundCookie = currentCookieValue.find(
                 (cookieItemObj) => cookieItemObj.id === props.item.id,
               );
-              console.log('found', foundCookie);
               if (!foundCookie) {
                 currentCookieValue.push({
                   id: props.item.id,
@@ -96,10 +92,8 @@ export default function Item(props) {
               } else {
                 foundCookie.num = foundCookie.num + inputVal;
               }
-              // come up with the logic
               setStringifiedCookie('num', currentCookieValue);
             }
-            console.log(currentCookieValue);
           }}
         >
           Add to cart

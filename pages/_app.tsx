@@ -14,11 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       setCart(cookieValue);
     }
   }, []);
-  console.log('card', cart);
+
   useEffect(() => {
     if (typeof cart !== 'undefined') setStringifiedCookie('num', cart);
   }, [cart]);
-  console.log('cardddd', cart);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { getItem, Item } from '../database/items';
+import { getItem } from '../database/items';
 
 const containerStyles = css`
   display: flex;
