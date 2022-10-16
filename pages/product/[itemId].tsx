@@ -1,17 +1,27 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { getItemById } from '../../database/items';
-import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { getItemById, Item } from '../../database/items';
+import { parseIntFromContextQuery } from '../../utils/contextQuery';
+import {
+  CartItem,
+  getParsedCookie,
+  setStringifiedCookie,
+} from '../../utils/cookies';
 
 const itemsStyles = css`
   margin: 0 auto;
-  padding: 60px;
+  padding: 80px;
   display: flex;
-  align-items: flex-end;
-  width: 800px;
+  align-items: center;
+  width: 100%;
+  button {
+    margin-top: 5px;
+    width: 200px;
+  }
 `;
 const formStyles = css`
   margin-left: 20px;
@@ -32,10 +42,20 @@ const imgStyles = css`
   border-radius: 10px;
 `;
 
-export default function Item(props) {
+type CartState = {
+  cart: CartItem[] | (undefined & symbol);
+  setCart: Dispatch<SetStateAction<CartItem[] | undefined>>;
+};
+type Props =
+  | {
+      item: Item;
+    }
+  | {
+      error: string;
+    };
+export default function SingleItem(props: Props & CartState) {
   const [inputVal, setInputVal] = useState(1);
-  if (props.error) {
-    context.res.statusCode = 404;
+  if ('error' in props) {
     return (
       <div>
         <Head>
@@ -50,29 +70,47 @@ export default function Item(props) {
   return (
     <div css={itemsStyles}>
       <div>
-        <h2>Name: {props.item.firstName}</h2>
+        <h1>Name: {props.item.firstName}</h1>
         <Image
           src={`/${props.item.id}-${props.item.firstName}.jpg`}
           alt="available different kinds of electric guitars"
           width="500px"
           height="600px"
+          data-test-id="product-image"
           css={imgStyles}
         />
       </div>
 
       <div css={formStyles}>
-        <div>EUR: {props.item.price}</div>
+        <div data-test-id="product-price">price : {props.item.price}</div>
         <div>Available: {props.item.number}</div>
-        {/* change  */}
+        {/* change the logic for useEffect */}
         <input
           type="number"
           min="1"
           max={props.item.number}
           value={inputVal}
+          data-test-id="product-quantity"
           onChange={(event) => setInputVal(Number(event.currentTarget.value))}
         />
+
         <button
+          data-test-id="product-add-to-cart"
           onClick={() => {
+            // props.setCart(
+            //   props.cart.map((el) =>
+            //     el.id !== props.item.id
+            //       ? el
+            //       : { id: props.item.id, num: inputVal },
+            //   ),
+            // );
+            // if (!currentCookieValue) {
+            //   setStringifiedCookie('num', [
+            //     { id: props.item.id, num: inputVal },
+            //   ]);
+
+            //   return;
+            // }
             const currentCookieValue = getParsedCookie('num');
             if (!currentCookieValue) {
               props.setCart([{ id: props.item.id, num: inputVal }]);
@@ -102,9 +140,18 @@ export default function Item(props) {
     </div>
   );
 }
-export async function getServerSideProps(context) {
-  const itemId = parseInt(context.query.itemId);
-
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<Props>> {
+  const itemId = parseIntFromContextQuery(context.query.itemId);
+  if (typeof itemId === 'undefined') {
+    context.res.statusCode = 404;
+    return {
+      props: {
+        error: 'Item not found',
+      },
+    };
+  }
   const foundItem = await getItemById(itemId);
   if (typeof foundItem === 'undefined') {
     return {

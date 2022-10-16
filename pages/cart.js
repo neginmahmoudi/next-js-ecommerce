@@ -72,13 +72,11 @@ export default function Cart(props) {
         ?.price,
     };
   });
-  console.log('cartpage', props.cart);
 
   const totalPrice = cartTotal?.reduce(
     (accumulator, item) => accumulator + Number(item.price) * item.num,
     0,
   );
-  console.log('total', totalPrice);
 
   function removeItem(id) {
     const newCart = props.cart?.filter((item) => item.id !== id);
@@ -102,7 +100,10 @@ export default function Cart(props) {
         ) : (
           cartTotal.map((item) => {
             return (
-              <div key={`Items-${item.id}`}>
+              <div
+                key={`Items-${item.id}`}
+                data-test-id="cart-product-<product id>"
+              >
                 <div css={fConStyles}>
                   <Link href={`/products/${item.id}`}>
                     <a data-test-id={`product-${item.id}`}>
@@ -118,10 +119,16 @@ export default function Cart(props) {
                   <div css={productStyles}>
                     <div>
                       <div>{item.firstName}</div>
-                      <div> Number :{item.num}</div>
+                      <div data-test-id="cart-product-quantity-<product id>">
+                        {' '}
+                        Number :{item.num}
+                      </div>
                       <div>EUR : {item.price}</div>
-
-                      <button onClick={() => removeItem(item.id)}>
+                      {/* {change this pease} */}
+                      <button
+                        data-test-id="cart-product-remove-<product id>"
+                        onClick={() => removeItem(item.id)}
+                      >
                         remove
                       </button>
                     </div>
@@ -140,12 +147,14 @@ export default function Cart(props) {
           <div> Subtotal : {totalPrice}</div>
           <div>Shipping price : {!props.cart?.length ? 0 : 49}</div>
           <div>
-            <div>Total : {!props.cart?.length ? 0 : totalPrice + 49}</div>
+            <div data-test-id="cart-total">
+              Total : {!props.cart?.length ? 0 : totalPrice + 49}
+            </div>
           </div>
         </div>
 
         <Link href="/checkout">
-          <button>CHECKOUT</button>
+          <button data-test-id="cart-checkout">CHECKOUT</button>
         </Link>
       </div>
     </>

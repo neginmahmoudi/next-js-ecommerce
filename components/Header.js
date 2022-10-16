@@ -52,7 +52,7 @@ export default function Header(props) {
     return accumulator + curValue.num;
   }, 0);
   return (
-    <header>
+    <header data-test-id="products-link">
       <div css={containerStyle}>
         <div css={partOneStyle}>
           <Image
@@ -76,7 +76,9 @@ export default function Header(props) {
                 height="30px"
               />
             </Link>
-            {sumCart}
+            <Link href="/cart" data-test-id="cart-link">
+              <div data-test-id="cart-count">{sumCart}</div>
+            </Link>
             <Link href="/checkout">checkout</Link>
           </nav>
         </div>
