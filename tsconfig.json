@@ -13,14 +13,13 @@
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve",
-    "jsxImportSource": "@emotion/react",
+    "jsx": "react-jsx",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "incremental": true
+    "incremental": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "**/.eslintrc.cjs",
@@ -30,8 +29,7 @@
     "**/*.js",
     "**/*.jsx",
     "**/*.cjs",
-    "**/*.mjs",
-    "pages/product/index.jtsx"
+    "**/*.mjs"
   ],
   "exclude": ["node_modules", "build"]
 }
