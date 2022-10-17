@@ -49,6 +49,12 @@ export default function About() {
             width="600px"
             height="500px"
           />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     </>

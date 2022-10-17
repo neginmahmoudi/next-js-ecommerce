@@ -5,19 +5,6 @@ import Layout from '../components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps }) {
-  // useEffect(() => {
-  //   const cookieValue = getParsedCookie('num');
-  //   setCart(cookieValue ? cookieValue : []);
-  // }, []);
-  // useEffect(() => {
-  //   const parsedCookies = Cookies.get('num')
-  //     ? JSON.parse(Cookies.get('num'))
-  //     : [];
-  //   setCart(parsedCookies);
-  // }, []);
-  // useEffect(() => {
-  //   setStringifiedCookie('num', cart);
-  // }, [cart]);
   const [cart, setCart] = useState();
   useEffect(() => {
     const cookieValue = getParsedCookie('num');

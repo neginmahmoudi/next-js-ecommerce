@@ -3055,7 +3055,7 @@ micromatch@^4.0.4:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
-"migrate@dotenv ley":
+migrate@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/migrate/-/migrate-1.8.0.tgz#c28b2a2cddc309d5eabe297b5a2220f004b062bc"
   integrity sha512-K18j+/k0M/MWjhAwxc6t5WST9G4yAdbUEy04Y7XcTiTf62QQPDcMKcoxj5lpMvWjRJPG0QEnm0UPlmMoM0bRRQ==

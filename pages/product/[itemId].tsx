@@ -84,7 +84,7 @@ export default function SingleItem(props: Props & CartState) {
       <div css={formStyles}>
         <div data-test-id="product-price">price : {props.item.price}</div>
         <div>Available: {props.item.number}</div>
-        {/* change the logic for useEffect */}
+
         <input
           type="number"
           min="1"
@@ -97,20 +97,7 @@ export default function SingleItem(props: Props & CartState) {
         <button
           data-test-id="product-add-to-cart"
           onClick={() => {
-            // props.setCart(
-            //   props.cart.map((el) =>
-            //     el.id !== props.item.id
-            //       ? el
-            //       : { id: props.item.id, num: inputVal },
-            //   ),
-            // );
-            // if (!currentCookieValue) {
-            //   setStringifiedCookie('num', [
-            //     { id: props.item.id, num: inputVal },
-            //   ]);
-
-            //   return;
-            // }
+            //  the Original working one
             const currentCookieValue = getParsedCookie('num');
             if (!currentCookieValue) {
               props.setCart([{ id: props.item.id, num: inputVal }]);
@@ -128,7 +115,14 @@ export default function SingleItem(props: Props & CartState) {
                   { id: props.item.id, num: inputVal },
                 ]);
               } else {
-                foundCookie.num = foundCookie.num + inputVal;
+                // foundCookie.num = foundCookie.num + inputVal;
+                props.cart.find((el) => {
+                  if (el.id === props.item.id) {
+                    el.num = el.num + inputVal;
+                  }
+                });
+
+                props.setCart([...props.cart]);
               }
               setStringifiedCookie('num', currentCookieValue);
             }
