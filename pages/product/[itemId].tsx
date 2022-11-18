@@ -116,7 +116,7 @@ export default function SingleItem(props: Props & CartState) {
                 ]);
               } else {
                 // foundCookie.num = foundCookie.num + inputVal;
-                props.cart.find((el) => {
+                props.cart.forEach((el) => {
                   if (el.id === props.item.id) {
                     el.num = el.num + inputVal;
                   }
