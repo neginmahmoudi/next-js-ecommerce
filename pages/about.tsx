@@ -44,7 +44,7 @@ export default function About() {
 
         <div css={imgStyles}>
           <Image
-            src="/radiohead.jpg"
+            src="/images/radiohead.jpg"
             alt="view of radiohead"
             width="600px"
             height="500px"

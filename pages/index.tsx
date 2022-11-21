@@ -69,7 +69,7 @@ export default function Home() {
         </div>
         <div css={imgContainerStyles}>
           <Image
-            src="/homepage.jpg"
+            src="/images/homepage.jpg"
             alt="view of guitars in a store"
             width="800px"
             height="600px"

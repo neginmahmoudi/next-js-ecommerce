@@ -72,7 +72,7 @@ export default function SingleItem(props: Props & CartState) {
       <div>
         <h1>Name: {props.item.firstName}</h1>
         <Image
-          src={`/${props.item.id}-${props.item.firstName}.jpg`}
+          src={`/images/${props.item.id}-${props.item.firstName}.jpg`}
           alt="available different kinds of electric guitars"
           width="500px"
           height="600px"

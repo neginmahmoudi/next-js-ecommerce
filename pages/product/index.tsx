@@ -65,7 +65,7 @@ export default function Items(props: Props) {
               >
                 <Link href={`/product/${item.id}`}>
                   <Image
-                    src={`/${item.id}-${item.firstName}.jpg`}
+                    src={`/images/${item.id}-${item.firstName}.jpg`}
                     alt="available different kinds of electric guitars"
                     width="200px"
                     height="200px"
