@@ -56,7 +56,7 @@ export default function Header(props) {
       <div css={containerStyle}>
         <div css={partOneStyle}>
           <Image
-            src="/guitar-.jpg"
+            src="/images/guitar-.jpg"
             alt="logo of the site"
             width="80px"
             height="80px"
@@ -70,7 +70,7 @@ export default function Header(props) {
             <Link href="/product">Products</Link>
             <Link href="/cart">
               <Image
-                src="/trolly.jpg"
+                src="/images/trolly.jpg"
                 alt="logo of the cart"
                 width="30px"
                 height="30px"
