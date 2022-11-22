@@ -1,4 +1,4 @@
-# cycleria - e-commerce store
+# comfortably numb - e-commerce store
 
 ## Description
 
