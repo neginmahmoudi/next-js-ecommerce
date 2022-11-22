@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# cycleria - e-commerce store
 
-## Getting Started
+## Description
 
-First, run the development server:
+Comfortably Numb is a fictional e-commerce store for electric guitars.
+This project is part of a web development course. It is no actual company and no purchases can be made. The site is not responsive.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Functionalities
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Landing page
+- Products page where all the products are listed
+- Pages for each single product with the ability to add a quantity to the cart
+- Shopping cart page with a list of all products. This page allows the user to the ability to change the quantity, delete products and view the total price.
+- Checkout page where users input the shipping and payment information
+- Thank you page after checkout.
+- The header shows the current number of items in the cart - it also links to the shopping cart.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Technologies
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Next.js
+- React
+- Postgres
+- Emotion
+- Typescript
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Setup instructions
 
-## Learn More
+- Clone the repository with `git clone <repo>`
+- Setup the database by downloading and installing PostgreSQL
+- Create a user and a database
+- Create a new file .env
+- Copy the environment variables from .env-example into .env
+- Replace the placeholders xxxxx with your username, password and name of database
+- Install dotenv-cli with `yarn add dotenv-cli`
+- Run `yarn install` in your command line
+- Run the migrations with `yarn migrate up`
+- Start the server by running `yarn dev`
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy on fly.io
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Generate a Fly.io Token, called _GitHub Actions Deploy Token_ and copy the text
+- Create a new repository secret in the GitHub repo, named FLY_API_TOKEN
+- Log into Fly.io on the command line: `flyctl auth login`
+- Create an app `flyctl apps create --name <app name>`
+- Create the Fly.io config files
+- Add database credentials using Fly.io secrets
+  `flyctl secrets set PGHOST=localhost PGDATABASE=$(openssl rand -hex 16) PGUSERNAME=upleveled$(openssl rand -hex 16) PGPASSWORD=$(openssl rand -base64 32)`
+- Create a 1GB volume for the PostgreSQL database in Frankfurt
+  `flyctl volumes create postgres --size 1 --region fra`
+- Deploy: `flyctl deploy`
